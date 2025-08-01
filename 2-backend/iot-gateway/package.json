@@ -1,0 +1,47 @@
+{
+  "name": "iot-gateway",
+  "version": "1.0.0",
+  "description": "Gateway IoT para sistema de inventario con soporte NFC y sensores",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mqtt": "^4.3.7",
+    "ws": "^8.13.0",
+    "joi": "^17.9.2",
+    "knex": "^2.4.2",
+    "pg": "^8.11.0",
+    "redis": "^4.6.7",
+    "helmet": "^7.0.0",
+    "cors": "^2.8.5",
+    "morgan": "^1.10.0",
+    "compression": "^1.7.4",
+    "express-rate-limit": "^6.7.0",
+    "dotenv": "^16.1.4",
+    "winston": "^3.9.0",
+    "uuid": "^9.0.0",
+    "axios": "^1.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3",
+    "eslint": "^8.42.0"
+  },
+  "keywords": [
+    "iot",
+    "mqtt",
+    "nfc",
+    "sensors",
+    "microservices",
+    "inventory"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

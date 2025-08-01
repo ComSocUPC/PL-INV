@@ -1,0 +1,90 @@
+{
+  "folders": [
+    {
+      "name": "📁 Root",
+      "path": "./"
+    },
+    {
+      "name": "� Frontend (Capa 1)",
+      "path": "./1-frontend"
+    },
+    {
+      "name": "�🌐 API Gateway",
+      "path": "./2-backend/api-gateway"
+    },
+    {
+      "name": "🔐 Auth Service",
+      "path": "./2-backend/auth-service"
+    },
+    {
+      "name": "📦 Product Service",
+      "path": "./2-backend/product-service"
+    },
+    {
+      "name": "📊 Inventory Service",
+      "path": "./2-backend/inventory-service"
+    },
+    {
+      "name": "🔌 IoT Service",
+      "path": "./2-backend/iot-service"
+    },
+    {
+      "name": "�️ PostgreSQL",
+      "path": "./3-database/postgres"
+    },
+    {
+      "name": "⚡ Redis",
+      "path": "./3-database/redis"
+    },
+    {
+      "name": "📡 MQTT",
+      "path": "./3-database/mqtt"
+    },
+    {
+      "name": "📚 Documentation",
+      "path": "./docs"
+    }
+  ],
+  "settings": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "emmet.includeLanguages": {
+      "javascript": "javascriptreact"
+    },
+    "eslint.workingDirectories": [
+      "./2-backend/api-gateway",
+      "./2-backend/auth-service",
+      "./2-backend/product-service",
+      "./2-backend/inventory-service",
+      "./2-backend/iot-service",
+      "./1-frontend"
+    ],
+    "docker.defaultRegistryPath": "localhost:5000",
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/logs": true,
+      "**/.env": false
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/logs": true
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-vscode.vscode-json",
+      "bradlc.vscode-tailwindcss",
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "ms-vscode.vscode-typescript-next",
+      "formulahendry.auto-rename-tag",
+      "ms-azuretools.vscode-docker",
+      "humao.rest-client",
+      "redhat.vscode-yaml",
+      "ms-vscode.vscode-json"
+    ]
+  }
+}

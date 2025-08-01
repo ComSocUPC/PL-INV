@@ -1,0 +1,169 @@
+# Docker Compose para testing
+version: '3.8'
+
+services:
+  # Base de datos para testing
+  postgres-test:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: inventory_test
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis para testing
+  redis-test:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MQTT Broker para testing
+  mosquitto-test:
+    image: eclipse-mosquitto:2
+    ports:
+      - "1884:1883"
+      - "9002:9001"
+    volumes:
+      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    healthcheck:
+      test: ["CMD-SHELL", "mosquitto_pub -h localhost -t test -m test"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # API Gateway para testing
+  api-gateway-test:
+    build:
+      context: .
+      dockerfile: services/api-gateway/Dockerfile
+    ports:
+      - "3001:3000"
+    environment:
+      NODE_ENV: test
+      PORT: 3000
+      AUTH_SERVICE_URL: http://auth-service-test:3000
+      PRODUCT_SERVICE_URL: http://product-service-test:3000
+      INVENTORY_SERVICE_URL: http://inventory-service-test:3000
+      IOT_SERVICE_URL: http://iot-gateway-test:3000
+      REDIS_URL: redis://redis-test:6379
+    depends_on:
+      - redis-test
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Servicio de autenticación para testing
+  auth-service-test:
+    build:
+      context: .
+      dockerfile: services/auth-service/Dockerfile
+    ports:
+      - "3002:3000"
+    environment:
+      NODE_ENV: test
+      PORT: 3000
+      DATABASE_URL: postgres://postgres:postgres@postgres-test:5432/inventory_test
+      JWT_SECRET: test-jwt-secret-key-for-testing-only
+      REDIS_URL: redis://redis-test:6379
+    depends_on:
+      - postgres-test
+      - redis-test
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Servicio de productos para testing
+  product-service-test:
+    build:
+      context: .
+      dockerfile: services/product-service/Dockerfile
+    ports:
+      - "3003:3000"
+    environment:
+      NODE_ENV: test
+      PORT: 3000
+      DATABASE_URL: postgres://postgres:postgres@postgres-test:5432/inventory_test
+      REDIS_URL: redis://redis-test:6379
+      AUTH_SERVICE_URL: http://auth-service-test:3000
+    depends_on:
+      - postgres-test
+      - redis-test
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Servicio de inventario para testing
+  inventory-service-test:
+    build:
+      context: .
+      dockerfile: services/inventory-service/Dockerfile
+    ports:
+      - "3004:3000"
+    environment:
+      NODE_ENV: test
+      PORT: 3000
+      DATABASE_URL: postgres://postgres:postgres@postgres-test:5432/inventory_test
+      REDIS_URL: redis://redis-test:6379
+      MQTT_URL: mqtt://mosquitto-test:1883
+      PRODUCT_SERVICE_URL: http://product-service-test:3000
+    depends_on:
+      - postgres-test
+      - redis-test
+      - mosquitto-test
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Gateway IoT para testing
+  iot-gateway-test:
+    build:
+      context: .
+      dockerfile: services/iot-gateway/Dockerfile
+    ports:
+      - "3005:3000"
+    environment:
+      NODE_ENV: test
+      PORT: 3000
+      DATABASE_URL: postgres://postgres:postgres@postgres-test:5432/inventory_test
+      REDIS_URL: redis://redis-test:6379
+      MQTT_URL: mqtt://mosquitto-test:1883
+      PRODUCT_SERVICE_URL: http://product-service-test:3000
+      INVENTORY_SERVICE_URL: http://inventory-service-test:3000
+    depends_on:
+      - postgres-test
+      - redis-test
+      - mosquitto-test
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_test_data:
+
+networks:
+  default:
+    name: inventory-test-network

@@ -1,0 +1,24 @@
+{
+  "name": "simple-warehouse-auth",
+  "version": "1.0.0",
+  "description": "Servicio de autenticación simple para almacén educativo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.1",
+    "bcryptjs": "^2.4.3",
+    "sqlite3": "^5.1.6",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["auth", "jwt", "microservice", "education"],
+  "author": "Tutorial Microservicios",
+  "license": "MIT"
+}

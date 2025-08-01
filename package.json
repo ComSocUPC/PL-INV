@@ -1,0 +1,170 @@
+{
+  "name": "inventory-microservices",
+  "version": "1.0.0",
+  "description": "Sistema de inventario con arquitectura de microservicios e IoT",
+  "private": true,
+  "workspaces": [
+    "2-backend/*",
+    "1-frontend"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm run install:services && npm run install:frontend",
+    "install:services": "concurrently \"npm run install:api-gateway\" \"npm run install:auth\" \"npm run install:products\" \"npm run install:inventory\" \"npm run install:iot\"",
+    "install:api-gateway": "cd 2-backend/api-gateway && npm install",
+    "install:auth": "cd 2-backend/auth-service && npm install",
+    "install:products": "cd 2-backend/product-service && npm install",
+    "install:inventory": "cd 2-backend/inventory-service && npm install",
+    "install:iot": "cd 2-backend/iot-service && npm install",
+    "install:frontend": "cd 1-frontend && npm install",
+    
+    "dev": "docker-compose up --build",
+    "dev:detached": "docker-compose up --build -d",
+    "dev:logs": "docker-compose logs -f",
+    "dev:stop": "docker-compose down",
+    "dev:clean": "docker-compose down -v --rmi all",
+    
+    "start": "docker-compose -f docker-compose.prod.yml up -d",
+    "stop": "docker-compose down",
+    
+    "test": "npm run test:services",
+    "test:services": "concurrently \"npm run test:api-gateway\" \"npm run test:auth\" \"npm run test:products\" \"npm run test:inventory\" \"npm run test:iot\"",
+    "test:api-gateway": "cd 2-backend/api-gateway && npm test",
+    "test:auth": "cd 2-backend/auth-service && npm test",
+    "test:products": "cd 2-backend/product-service && npm test",
+    "test:inventory": "cd 2-backend/inventory-service && npm test",
+    "test:iot": "cd 2-backend/iot-service && npm test",
+    "test:frontend": "cd 1-frontend && npm test",
+    "test:contract": "npm run test:contract:consumer && npm run test:contract:provider",
+    "test:contract:consumer": "jest --config=jest.contract.config.js --testPathPattern=consumer",
+    "test:contract:provider": "jest --config=jest.contract.config.js --testPathPattern=provider",
+    "test:e2e": "cypress run",
+    "test:load": "k6 run tests/load/scenarios.js",
+    
+    "lint": "npm run lint:services && npm run lint:frontend",
+    "lint:services": "concurrently \"npm run lint:api-gateway\" \"npm run lint:auth\" \"npm run lint:products\" \"npm run lint:inventory\" \"npm run lint:iot\"",
+    "lint:api-gateway": "cd 2-backend/api-gateway && npm run lint",
+    "lint:auth": "cd 2-backend/auth-service && npm run lint",
+    "lint:products": "cd 2-backend/product-service && npm run lint",
+    "lint:inventory": "cd 2-backend/inventory-service && npm run lint",
+    "lint:iot": "cd 2-backend/iot-service && npm run lint",
+    "lint:frontend": "cd 1-frontend && npm run lint",
+    "lint:fix": "npm run lint:services:fix && npm run lint:frontend:fix",
+    "lint:services:fix": "concurrently \"cd 2-backend/api-gateway && npm run lint:fix\" \"cd 2-backend/auth-service && npm run lint:fix\" \"cd 2-backend/product-service && npm run lint:fix\" \"cd 2-backend/inventory-service && npm run lint:fix\" \"cd 2-backend/iot-service && npm run lint:fix\"",
+    "lint:frontend:fix": "cd 1-frontend && npm run lint:fix",
+    
+    "validate:api-specs": "echo '⚠️ API validation moved to individual services'",
+    "validate:openapi": "echo '⚠️ OpenAPI validation moved to individual services'",
+    "validate:examples": "echo '⚠️ Examples validation moved to individual services'",
+    "validate:contracts": "npm run test:contract",
+    
+    "docs:generate": "echo '📚 Documentation is available in docs/ folder'",
+    "docs:api": "echo '📋 API documentation is available in each service'",
+    "docs:readme": "readme-md-generator",
+    "docs:serve": "http-server docs -p 8080",
+    
+    "db:migrate": "cd 2-backend/auth-service && npm run migrate && cd ../product-service && npm run migrate && cd ../inventory-service && npm run migrate && cd ../iot-service && npm run migrate",
+    "db:seed": "cd 2-backend/auth-service && npm run seed && cd ../product-service && npm run seed && cd ../inventory-service && npm run seed && cd ../iot-service && npm run seed",
+    "db:reset": "npm run db:migrate && npm run db:seed",
+    
+    "security:audit": "npm audit --recursive",
+    "security:check": "snyk test",
+    "security:monitor": "snyk monitor",
+    
+    "docker:build": "docker-compose build",
+    "docker:push": "docker-compose push",
+    "docker:pull": "docker-compose pull",
+    
+    "release:prepare": "standard-version",
+    "release:publish": "git push --follow-tags origin main",
+    
+    "pact:publish": "pact-broker publish ./pacts --consumer-app-version=$npm_package_version --broker-base-url=$PACT_BROKER_BASE_URL --broker-token=$PACT_BROKER_TOKEN",
+    "pact:can-deploy": "pact-broker can-i-deploy --pacticipant inventory-system --version $npm_package_version --broker-base-url=$PACT_BROKER_BASE_URL --broker-token=$PACT_BROKER_TOKEN"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
+    "@pact-foundation/pact": "^10.4.1",
+    "@pact-foundation/pact-cli": "^14.3.0",
+    "concurrently": "^8.2.0",
+    "cypress": "^12.17.1",
+    "eslint": "^8.44.0",
+    "eslint-config-standard": "^17.1.0",
+    "husky": "^8.0.3",
+    "jest": "^29.5.0",
+    "k6": "^0.45.1",
+    "lint-staged": "^13.2.3",
+    "redoc-cli": "^0.13.21",
+    "snyk": "^1.1192.0",
+    "standard-version": "^9.5.0",
+    "swagger-validator": "^1.0.5",
+    "http-server": "^14.1.1"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "api-specs/*.yaml": [
+      "swagger-validator",
+      "npm run validate:examples",
+      "git add"
+    ],
+    "*.md": [
+      "markdownlint --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-push": "npm run test && npm run validate:api-specs"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "scope-enum": [
+        2,
+        "always",
+        [
+          "api-gateway",
+          "auth",
+          "products",
+          "inventory",
+          "iot",
+          "frontend",
+          "docs",
+          "tests",
+          "ci",
+          "deps",
+          "release"
+        ]
+      ]
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tu-organizacion/inventory-microservices.git"
+  },
+  "keywords": [
+    "microservices",
+    "inventory",
+    "iot",
+    "nfc",
+    "docker",
+    "nodejs",
+    "openapi",
+    "postgresql",
+    "redis",
+    "mqtt"
+  ],
+  "author": "Tu Equipo de Desarrollo",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

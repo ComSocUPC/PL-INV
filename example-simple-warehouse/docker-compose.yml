@@ -1,0 +1,185 @@
+# 🐳 Docker Compose - Orquestación Completa del Sistema
+# Este archivo permite ejecutar todos los microservicios del almacén de forma coordinada
+
+version: '3.8'
+
+# 🌐 Configuración de red para comunicación entre servicios
+networks:
+  warehouse-network:
+    driver: bridge
+    name: warehouse-network
+
+# 💾 Volúmenes para persistencia de datos
+volumes:
+  auth-data:
+    name: warehouse-auth-data
+  product-data:
+    name: warehouse-product-data
+  iot-data:
+    name: warehouse-iot-data
+
+services:
+  # 🚪 API Gateway - Puerto de entrada principal (Puerto 3000)
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: warehouse-api-gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - PRODUCT_SERVICE_URL=http://product-service:3002
+      - IOT_SERVICE_URL=http://iot-service:3003
+    depends_on:
+      - auth-service
+      - product-service
+      - iot-service
+    networks:
+      - warehouse-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # 🔐 Auth Service - Autenticación y autorización (Puerto 3001)
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: warehouse-auth-service
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - JWT_SECRET=mi-secreto-ultra-seguro-para-produccion
+    volumes:
+      - auth-data:/app/data
+    networks:
+      - warehouse-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # 🛍️ Product Service - Gestión de productos (Puerto 3002)
+  product-service:
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    container_name: warehouse-product-service
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=production
+      - PORT=3002
+    volumes:
+      - product-data:/app/data
+    networks:
+      - warehouse-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # 🌐 IoT Service - Dispositivos IoT y sensores (Puerto 3003)
+  iot-service:
+    build:
+      context: ./iot-service
+      dockerfile: Dockerfile
+    container_name: warehouse-iot-service
+    ports:
+      - "3003:3003"
+    environment:
+      - NODE_ENV=production
+      - PORT=3003
+    volumes:
+      - iot-data:/app/data
+    networks:
+      - warehouse-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+# 📝 Información para principiantes:
+#
+# Este archivo Docker Compose define una arquitectura de microservicios completa:
+#
+# 🏗️ ARQUITECTURA:
+# ┌─────────────────┐    ┌──────────────────┐
+# │   API Gateway   │────│   Auth Service   │
+# │   (Puerto 3000) │    │   (Puerto 3001)  │
+# └─────────┬───────┘    └──────────────────┘
+#           │
+#           ├─────────────┬─────────────────┐
+#           │             │                 │
+#   ┌───────▼──────┐ ┌────▼──────────┐ ┌───▼─────────┐
+#   │   Product    │ │      IoT      │ │  Frontend   │
+#   │   Service    │ │   Service     │ │  (Futuro)   │
+#   │ (Puerto 3002)│ │ (Puerto 3003) │ │             │
+#   └──────────────┘ └───────────────┘ └─────────────┘
+#
+# 🚀 COMANDOS ÚTILES:
+#
+# Iniciar todos los servicios:
+# docker-compose up -d
+#
+# Ver logs de todos los servicios:
+# docker-compose logs -f
+#
+# Ver logs de un servicio específico:
+# docker-compose logs -f api-gateway
+#
+# Detener todos los servicios:
+# docker-compose down
+#
+# Reconstruir y reiniciar:
+# docker-compose up -d --build
+#
+# Ver estado de los servicios:
+# docker-compose ps
+#
+# 🌐 URLs DEL SISTEMA:
+# - API Gateway: http://localhost:3000
+# - Auth Service: http://localhost:3001
+# - Product Service: http://localhost:3002
+# - IoT Service: http://localhost:3003
+#
+# 📚 DOCUMENTACIÓN:
+# - API Gateway: http://localhost:3000/api-docs
+# - Auth Service: http://localhost:3001/api-docs
+# - Product Service: http://localhost:3002/api-docs
+# - IoT Service: http://localhost:3003/api-docs
+#
+# 🔄 COMUNICACIÓN:
+# - Los servicios se comunican internamente usando los nombres de servicio
+# - La red 'warehouse-network' permite comunicación segura entre contenedores
+# - Los volúmenes persisten los datos de las bases de datos SQLite
+#
+# 💾 PERSISTENCIA:
+# - auth-data: Base de datos de usuarios
+# - product-data: Base de datos de productos
+# - iot-data: Base de datos de dispositivos IoT y lecturas
+#
+# 🏥 HEALTH CHECKS:
+# - Cada servicio tiene verificación automática de salud
+# - Docker Compose reinicia automáticamente servicios fallidos
+# - Dependencias aseguran orden correcto de inicio
+#
+# ¡Perfecto para aprender arquitectura de microservicios! 🎓

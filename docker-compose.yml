@@ -1,0 +1,240 @@
+version: '3.8'
+
+services:
+  # 💾 CAPA 3: DATOS Y PERSISTENCIA
+  postgres:
+    build:
+      context: ./3-database/postgres
+      dockerfile: Dockerfile
+    container_name: inventory_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-inventory_db}
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./3-database/postgres/init:/docker-entrypoint-initdb.d
+    networks:
+      - inventory_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-admin}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis:
+    build:
+      context: ./3-database/redis
+      dockerfile: Dockerfile
+    container_name: inventory_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - inventory_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  mosquitto:
+    build:
+      context: ./3-database/mqtt
+      dockerfile: Dockerfile
+    container_name: inventory_mqtt
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_logs:/mosquitto/log
+    networks:
+      - inventory_network
+    healthcheck:
+      test: ["CMD-SHELL", "mosquitto_pub -h localhost -t test -m 'test' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ⚙️ CAPA 2: LÓGICA DE NEGOCIO (MICROSERVICIOS)
+  api-gateway:
+    build:
+      context: ./2-backend/api-gateway
+      dockerfile: Dockerfile
+    container_name: inventory_api_gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - PRODUCT_SERVICE_URL=http://product-service:3002
+      - INVENTORY_SERVICE_URL=http://inventory-service:3003
+      - IOT_SERVICE_URL=http://iot-service:3004
+      - JWT_SECRET=${JWT_SECRET:-your-super-secret-key}
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+      - auth-service
+      - product-service
+      - inventory-service
+      - iot-service
+    networks:
+      - inventory_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  auth-service:
+    build:
+      context: ./2-backend/auth-service
+      dockerfile: Dockerfile
+    container_name: inventory_auth_service
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-admin}:${POSTGRES_PASSWORD:-password}@postgres:5432/${POSTGRES_DB:-inventory_db}
+      - JWT_SECRET=${JWT_SECRET:-your-super-secret-key}
+      - JWT_EXPIRES_IN=24h
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - inventory_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  product-service:
+    build:
+      context: ./2-backend/product-service
+      dockerfile: Dockerfile
+    container_name: inventory_product_service
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=production
+      - PORT=3002
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-admin}:${POSTGRES_PASSWORD:-password}@postgres:5432/${POSTGRES_DB:-inventory_db}
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - inventory_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  inventory-service:
+    build:
+      context: ./2-backend/inventory-service
+      dockerfile: Dockerfile
+    container_name: inventory_inventory_service
+    ports:
+      - "3003:3003"
+    environment:
+      - NODE_ENV=production
+      - PORT=3003
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-admin}:${POSTGRES_PASSWORD:-password}@postgres:5432/${POSTGRES_DB:-inventory_db}
+      - REDIS_URL=redis://redis:6379
+      - PRODUCT_SERVICE_URL=http://product-service:3002
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      product-service:
+        condition: service_healthy
+    networks:
+      - inventory_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  iot-service:
+    build:
+      context: ./2-backend/iot-service
+      dockerfile: Dockerfile
+    container_name: inventory_iot_service
+    ports:
+      - "3004:3004"
+    environment:
+      - NODE_ENV=production
+      - PORT=3004
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-admin}:${POSTGRES_PASSWORD:-password}@postgres:5432/${POSTGRES_DB:-inventory_db}
+      - MQTT_BROKER_URL=mqtt://mosquitto:1883
+      - REDIS_URL=redis://redis:6379
+      - INVENTORY_SERVICE_URL=http://inventory-service:3003
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mosquitto:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - inventory_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3004/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # 🎨 CAPA 1: PRESENTACIÓN (INTERFAZ DE USUARIO)
+  frontend:
+    build:
+      context: ./1-frontend
+      dockerfile: Dockerfile
+    container_name: inventory_frontend
+    ports:
+      - "3005:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:3000/api
+      - REACT_APP_WS_URL=ws://localhost:3000
+    depends_on:
+      - api-gateway
+    networks:
+      - inventory_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  mosquitto_data:
+    driver: local
+  mosquitto_logs:
+    driver: local
+
+networks:
+  inventory_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
