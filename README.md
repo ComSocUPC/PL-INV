@@ -1,12 +1,21 @@
-# 📦 Sistema de Inventario con Microservicios e IoT
+# 🏭 Sistema de Inventario con Microservicios e IoT
 
-Un sistema completo de gestión de inventario utilizando **arquitectura de microservicios**, con integración **IoT (NFC)** y **Docker Compose** para facilitar el despliegue.
+[![CI/CD](https://github.com/ComSocUPC/PL-INV/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/ComSocUPC/PL-INV/actions/workflows/ci-cd.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
+
+Este proyecto implementa un **sistema completo de inventario de productos** utilizando **arquitectura de microservicios**, **integración IoT** (acceso NFC) y **Docker Compose** para facilitar el despliegue. Incluye un **proyecto educativo completo** para aprender microservicios paso a paso.
 
 ## 🎯 ¿Nuevo en Microservicios?
 
 Si vienes de un entorno de **arquitectura de 3 capas** (Frontend → Backend → Database), este proyecto te ayudará a entender y migrar a **microservicios** de forma gradual y didáctica.
 
-**[📖 Lee la Guía de Inicio Rápido →](./QUICK_START.md)**
+### 🎓 **Para Estudiantes - Empezar Aquí:**
+👉 **[Proyecto Educativo Simple →](./example-simple-warehouse/README.md)**
+
+### � **Para Desarrolladores - Proyecto Completo:**
+👉 **[Guía de Inicio Rápido →](./QUICK_START.md)**
 
 ## 🏗️ Estructura Simplificada para Principiantes
 
