@@ -1,6 +1,25 @@
 # 🏭 Sistema de Inventario con Microservicios e IoT
 
-[![CI/CD](https://github.com/ComSocUPC/PL-INV/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/ComSocUPC/PL-INV/actions/workflows/ci-cd.yml)
+[![CI/CD](https://github.com/ComSocUPC/PL-INV/actions/workflows## 📚 Documentación Completa
+
+### 🎯 **Para Nuevos Contribuidores**
+- [🎉 Guía de Onboarding](./docs/ONBOARDING.md) - ¡Empieza aquí!
+- [👥 Guía de Equipos](./docs/TEAM_GUIDE.md) - Roles y responsabilidades  
+- [📊 Dashboard del Proyecto](./docs/DASHBOARD.md) - Métricas y estado
+
+### 🛠️ **Para Desarrolladores**
+- [🔄 Workflow de GitHub](./docs/GITHUB_WORKFLOW.md) - Proceso de colaboración
+- [🏗️ Arquitectura del Sistema](./docs/ARCHITECTURE.md) - Diseño técnico
+- [💻 Guía de Desarrollo](./docs/DEVELOPMENT.md) - Setup y workflows
+- [🚀 Guía de Deployment](./docs/DEPLOYMENT.md) - Producción y staging
+
+### 📖 **Ejemplos y Tutoriales**
+- [🎓 Ejemplo Educativo](./PROYECTO-EJEMPLO.md) - Proyecto simplificado
+- [🏭 Almacén Simple](./example-simple-warehouse/) - Implementación funcional
+
+## 📁 Documentación Técnica Original
+
+### Para Principiantes-cd.yml/badge.svg)](https://github.com/ComSocUPC/PL-INV/actions/workflows/ci-cd.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
