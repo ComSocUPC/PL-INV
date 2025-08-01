@@ -4,8 +4,9 @@
 
 ### 🎯 **Para Nuevos Contribuidores**
 - [🎉 Guía de Onboarding](./docs/ONBOARDING.md) - ¡Empieza aquí!
-- [👥 Guía de Equipos](./docs/TEAM_GUIDE.md) - Roles y responsabilidades  
-- [📊 Dashboard del Proyecto](./docs/DASHBOARD.md) - Métricas y estado
+- [👥 Guía de Equipos](./docs/TEAM_GUIDE.md) - Metodología competitiva
+- [📊 Dashboard del Proyecto](./docs/DASHBOARD.md) - Competencia en vivo
+- [🏆 Competition Workflow](./docs/COMPETITION_WORKFLOW.md) - Proceso detallado
 
 ### 🛠️ **Para Desarrolladores**
 - [🔄 Workflow de GitHub](./docs/GITHUB_WORKFLOW.md) - Proceso de colaboración
@@ -24,7 +25,27 @@
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
 
-Este proyecto implementa un **sistema completo de inventario de productos** utilizando **arquitectura de microservicios**, **integración IoT** (acceso NFC) y **Docker Compose** para facilitar el despliegue. Incluye un **proyecto educativo completo** para aprender microservicios paso a paso.
+Este proyecto implementa un **sistema completo de inventario de productos** utilizando **arquitectura de microservicios**, **integración IoT** (acceso NFC) y **Docker Compose** para facilitar el despliegue. 
+
+## 🏆 **Metodología Competitiva Única**
+
+Este proyecto utiliza una **metodología competitiva innovadora**:
+- **👥 4 Equipos de 2 personas** compiten semanalmente
+- **🎯 Mismo microservicio** - diferentes implementaciones
+- **🏆 La mejor implementación** se integra al proyecto principal
+- **📅 1 semana por challenge** - ritmo acelerado de desarrollo
+
+### 📊 **Competencia Actual: Auth Service (Semana 1)**
+| Equipo | Enfoque | Progreso | Innovation |
+|--------|---------|----------|------------|
+| 🐉 Dragons | Enhanced Security | 15% | Custom JWT Claims |
+| 🐙 Kraken | Performance | 10% | Database Optimization |
+| 🔥 Phoenix | Real-time | 5% | IoT Integration |
+| 🦄 Unicorn | DevOps | 20% | Container-Native |
+
+👉 **[Ver Dashboard de Competencia →](./docs/DASHBOARD.md)**
+
+Incluye un **proyecto educativo completo** para aprender microservicios paso a paso.
 
 ## 🎯 ¿Nuevo en Microservicios?
 

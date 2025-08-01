@@ -16,14 +16,35 @@ git config --global user.name "Tu Nombre"
 git config --global user.email "tu.email@upci.edu.pe"
 ```
 
-### 2️⃣ **Identificar tu Equipo**
+## 🎯 Metodología del Proyecto
 
-| 🎯 Si te interesa... | 👥 Tu equipo es... | 🌿 Tu rama es... |
-|---------------------|-------------------|------------------|
-| 🎨 Frontend, UI/UX, React | 🐉 **Dragons** | `E1-Dragons-🐉` |
-| ⚙️ Backend, APIs, Databases | 🐙 **Kraken** | `E2-Kraken-🐙` |
-| 🔌 IoT, Hardware, Sensores | 🔥 **Phoenix** | `E3-Phoenix-🔥` |
-| 🛠️ DevOps, Testing, CI/CD | 🦄 **Unicorn** | `E4-Unicorn-🦄` |
+### 🏆 **Competencia Semanal Entre Equipos**
+Este proyecto utiliza una metodología **competitiva y colaborativa**:
+
+- **👥 Equipos**: 4 equipos de 2 personas cada uno
+- **⏱️ Ritmo**: 1 microservicio por semana
+- **🎯 Challenge**: Todos los equipos implementan el MISMO microservicio
+- **🏆 Selección**: Se elige la MEJOR implementación
+- **🔄 Integración**: La versión ganadora se integra al proyecto principal
+
+### 📅 **Cronograma de Competencias**
+| Semana | Microservicio | Status |
+|--------|---------------|--------|
+| **1** | 🔐 Auth Service | 🏃‍♂️ En Progreso |
+| **2** | 📦 Product Service | ⏳ Próximo |
+| **3** | 📊 Inventory Service | ⏳ Próximo |
+| **4** | 🔌 IoT Gateway | ⏳ Próximo |
+
+### 🎯 Identificar tu Equipo
+
+| 🎯 Si te gusta... | 👥 Tu equipo es... | 🌿 Tu rama es... |
+|-------------------|-------------------|------------------|
+| 🎨 Innovar en Frontend/UI | 🐉 **Dragons** | `E1-Dragons-🐉` |
+| ⚙️ Optimizar Backend/APIs | 🐙 **Kraken** | `E2-Kraken-🐙` |
+| 🔌 Experimentar con IoT | 🔥 **Phoenix** | `E3-Phoenix-🔥` |
+| 🛠️ Perfeccionar DevOps | 🦄 **Unicorn** | `E4-Unicorn-🦄` |
+
+**Nota**: Todos los equipos implementan el mismo microservicio, pero cada uno con su enfoque y especialidad única.
 
 ### 3️⃣ **Setup de Desarrollo**
 
@@ -84,118 +105,149 @@ gh pr create --title "docs: my first contribution" --body "Mi primera contribuci
 
 ## 🎯 Onboarding por Equipo
 
-### 🐉 **Dragons Team (Frontend)**
+### 🐉 **Dragons Team (Auth Service - Semana 1)**
 
-#### **Setup Específico**
+#### **Setup para Competencia**
 ```bash
-cd 1-frontend
+cd 2-backend
 
-# Instalar dependencias
-npm install
+# Crear tu implementación de Auth Service
+git checkout E1-Dragons-🐉
+git pull origin E1-Dragons-🐉
 
-# Ejecutar en modo desarrollo
-npm run dev
+# Crear rama de competencia
+git checkout -b competition/week1-auth-service
 
-# Abrir en navegador
-open http://localhost:5173
+# Setup inicial
+mkdir auth-service-dragons
+cd auth-service-dragons
+npm init -y
+npm install express jsonwebtoken bcryptjs joi helmet cors
+npm install -D jest supertest nodemon
 ```
 
-#### **Tu Primera Tarea Dragons**
+#### **Tu Primera Tarea Dragons - Auth Service**
 ```bash
-# Crear branch para primera tarea
-git checkout -b feature/DRAG-hello-world
+# Crear estructura básica
+cat > index.js << 'EOF'
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const joi = require('joi');
 
-# Crear un componente simple
-mkdir src/components/HelloWorld
-cat > src/components/HelloWorld/index.jsx << 'EOF'
-import React from 'react';
+const app = express();
+app.use(express.json());
 
-const HelloWorld = ({ name = "Dragons Team" }) => {
-  return (
-    <div style={{ 
-      padding: '20px', 
-      border: '2px solid #ff6b6b', 
-      borderRadius: '8px',
-      backgroundColor: '#ffe0e0'
-    }}>
-      <h2>🐉 Hello {name}!</h2>
-      <p>¡Bienvenido al equipo Dragons!</p>
-    </div>
-  );
+// 🐉 Dragons Innovation: Advanced JWT with custom claims
+const generateToken = (user) => {
+  return jwt.sign({
+    id: user.id,
+    email: user.email,
+    role: user.role,
+    // Dragons special: User preferences in token
+    preferences: user.preferences,
+    team: 'dragons'
+  }, process.env.JWT_SECRET || 'dragons-secret', { expiresIn: '24h' });
 };
 
-export default HelloWorld;
-EOF
-
-# Añadir test
-cat > src/components/HelloWorld/HelloWorld.test.jsx << 'EOF'
-import { render, screen } from '@testing-library/react';
-import HelloWorld from './index';
-
-test('renders hello message', () => {
-  render(<HelloWorld name="Test User" />);
-  expect(screen.getByText(/Hello Test User/i)).toBeInTheDocument();
-});
-EOF
-
-# Ejecutar test
-npm test
-
-# Commit
-git add .
-git commit -m "feat(components): add HelloWorld component with tests"
-git push origin feature/DRAG-hello-world
-```
-
-### 🐙 **Kraken Team (Backend)**
-
-#### **Setup Específico**
-```bash
-cd 2-backend/api-gateway
-
-# Instalar dependencias
-npm install
-
-# Ejecutar en modo desarrollo
-npm run dev
-
-# Verificar API
-curl http://localhost:3000/api/health
-```
-
-#### **Tu Primera Tarea Kraken**
-```bash
-# Crear branch
-git checkout -b feature/KRAK-hello-endpoint
-
-# Añadir nuevo endpoint
-cat >> 2-backend/api-gateway/src/routes/index.js << 'EOF'
-
-// Hello endpoint for new team members
-app.get('/api/hello/:team', (req, res) => {
-  const { team } = req.params;
-  res.json({
-    message: `🐙 Hello from Kraken team to ${team}!`,
-    timestamp: new Date().toISOString(),
-    service: 'api-gateway',
-    version: '1.0.0'
-  });
-});
-EOF
-
-# Añadir test
-cat > 2-backend/api-gateway/tests/hello.test.js << 'EOF'
-const request = require('supertest');
-const app = require('../src/index');
-
-describe('Hello Endpoint', () => {
-  test('GET /api/hello/:team should return welcome message', async () => {
-    const response = await request(app)
-      .get('/api/hello/dragons')
-      .expect(200);
+// Register endpoint with Dragons flair
+app.post('/api/auth/register', async (req, res) => {
+  try {
+    const { email, password, name } = req.body;
     
-    expect(response.body.message).toContain('Hello from Kraken team');
-    expect(response.body.timestamp).toBeDefined();
+    // 🐉 Advanced validation
+    const schema = joi.object({
+      email: joi.string().email().required(),
+      password: joi.string().min(8).pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/).required(),
+      name: joi.string().min(2).max(50).required()
+    });
+    
+    const { error } = schema.validate({ email, password, name });
+    if (error) return res.status(400).json({ error: error.details[0].message });
+    
+    // Dragons innovation: Enhanced security
+    const hashedPassword = await bcrypt.hash(password, 12); // Higher salt rounds
+    
+    const user = {
+      id: Math.random().toString(36).substr(2, 9),
+      email,
+      name,
+      password: hashedPassword,
+      role: 'user',
+      preferences: { theme: 'dragon', notifications: true }, // Dragons special
+      createdAt: new Date()
+    };
+    
+    const token = generateToken(user);
+    
+    res.status(201).json({
+      message: '🐉 User registered successfully by Dragons team!',
+      token,
+      user: { id: user.id, email: user.email, name: user.name, role: user.role }
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error during registration' });
+  }
+});
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`🐉 Dragons Auth Service running on port ${PORT}`);
+});
+
+module.exports = app;
+EOF
+
+# Crear Dockerfile optimizado
+cat > Dockerfile << 'EOF'
+# 🐉 Dragons Multi-stage build for minimal size
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+FROM node:18-alpine AS runtime
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY . .
+EXPOSE 3001
+USER node
+CMD ["node", "index.js"]
+EOF
+
+# Crear tests
+mkdir tests
+cat > tests/auth.test.js << 'EOF'
+const request = require('supertest');
+const app = require('../index');
+
+describe('🐉 Dragons Auth Service', () => {
+  test('POST /api/auth/register should create user with Dragons enhancements', async () => {
+    const response = await request(app)
+      .post('/api/auth/register')
+      .send({
+        email: 'dragon@test.com',
+        password: 'DragonPass123!',
+        name: 'Dragon Warrior'
+      })
+      .expect(201);
+    
+    expect(response.body.message).toContain('Dragons team');
+    expect(response.body.token).toBeDefined();
+    expect(response.body.user.email).toBe('dragon@test.com');
+  });
+  
+  test('Should enforce Dragons password policy', async () => {
+    const response = await request(app)
+      .post('/api/auth/register')
+      .send({
+        email: 'weak@test.com',
+        password: 'weak',
+        name: 'Test User'
+      })
+      .expect(400);
+    
+    expect(response.body.error).toContain('pattern');
   });
 });
 EOF
@@ -203,172 +255,468 @@ EOF
 # Ejecutar tests
 npm test
 
-# Commit
+# Commit inicial
 git add .
-git commit -m "feat(api): add hello endpoint for team welcome"
-git push origin feature/KRAK-hello-endpoint
+git commit -m "feat(auth): 🐉 Dragons initial auth service with enhanced security"
+git push origin competition/week1-auth-service
 ```
 
-### 🔥 **Phoenix Team (IoT)**
+### 🐙 **Kraken Team (Auth Service - Semana 1)**
 
-#### **Setup Específico**
+#### **Setup para Competencia Kraken**
 ```bash
-cd 2-backend/iot-gateway
+# Kraken approach: Database-first, performance-focused
+git checkout E2-Kraken-🐙
+git checkout -b competition/week1-auth-service
 
-# Instalar dependencias
-npm install
-
-# Ejecutar simuladores
-npm run dev
-
-# Verificar WebSocket
-# (Abrir navegador en http://localhost:3004)
+mkdir auth-service-kraken
+cd auth-service-kraken
+npm init -y
+npm install express jsonwebtoken bcryptjs postgresql redis compression helmet morgan
+npm install -D jest supertest
 ```
 
-#### **Tu Primera Tarea Phoenix**
+#### **Tu Primera Tarea Kraken - Database-Optimized Auth**
 ```bash
-# Crear branch
-git checkout -b feature/PHOE-welcome-sensor
+# Kraken innovation: PostgreSQL + Redis integration
+cat > index.js << 'EOF'
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const compression = require('compression');
+const helmet = require('helmet');
+const morgan = require('morgan');
 
-# Crear simulador de bienvenida
-mkdir 2-backend/iot-gateway/src/simulators/welcome
-cat > 2-backend/iot-gateway/src/simulators/welcome/index.js << 'EOF'
-class WelcomeSensor {
-  constructor() {
-    this.deviceId = 'welcome-sensor-001';
-    this.teamMembers = ['Dragons', 'Kraken', 'Phoenix', 'Unicorn'];
-    this.currentIndex = 0;
-  }
+const app = express();
 
-  start() {
-    console.log(`🔥 Welcome Sensor started - Device ID: ${this.deviceId}`);
+// 🐙 Kraken optimizations
+app.use(compression()); // Response compression
+app.use(helmet()); // Security headers
+app.use(morgan('combined')); // Advanced logging
+app.use(express.json({ limit: '10mb' }));
+
+// 🐙 Kraken: Database connection simulation
+const users = new Map(); // Simulated PostgreSQL with connection pooling
+
+// 🐙 Kraken: Redis cache simulation
+const cache = new Map();
+
+app.post('/api/auth/register', async (req, res) => {
+  const startTime = Date.now();
+  
+  try {
+    const { email, password, name } = req.body;
     
-    setInterval(() => {
-      const currentTeam = this.teamMembers[this.currentIndex];
-      const welcomeData = {
-        deviceId: this.deviceId,
-        type: 'welcome',
-        team: currentTeam,
-        message: `¡Bienvenido al equipo ${currentTeam}! 🎉`,
-        timestamp: new Date().toISOString(),
-        temperature: 22 + Math.random() * 5, // Temp ambiente
-        mood: 'excited'
-      };
-      
-      // Emitir evento
-      this.emit('welcome', welcomeData);
-      
-      this.currentIndex = (this.currentIndex + 1) % this.teamMembers.length;
-    }, 5000); // Cada 5 segundos
+    // 🐙 Kraken: Advanced performance monitoring
+    if (users.has(email)) {
+      return res.status(409).json({ 
+        error: 'User already exists',
+        performance: { responseTime: Date.now() - startTime }
+      });
+    }
+    
+    // 🐙 Kraken: Optimized hashing with performance tracking
+    const hashStart = Date.now();
+    const hashedPassword = await bcrypt.hash(password, 10); // Balanced security/performance
+    const hashTime = Date.now() - hashStart;
+    
+    const user = {
+      id: `kraken_${Date.now()}`,
+      email,
+      name,
+      password: hashedPassword,
+      role: 'user',
+      createdAt: new Date(),
+      team: 'kraken'
+    };
+    
+    users.set(email, user);
+    
+    // 🐙 Kraken: Cache the user for quick access
+    cache.set(`user:${user.id}`, user);
+    
+    const token = jwt.sign(
+      { id: user.id, email: user.email, role: user.role, team: 'kraken' },
+      process.env.JWT_SECRET || 'kraken-deep-secret',
+      { expiresIn: '24h' }
+    );
+    
+    const responseTime = Date.now() - startTime;
+    
+    res.status(201).json({
+      message: '🐙 User registered by Kraken team - Optimized performance!',
+      token,
+      user: { id: user.id, email: user.email, name: user.name, role: user.role },
+      performance: {
+        totalResponseTime: responseTime,
+        hashingTime: hashTime,
+        cacheStatus: 'stored'
+      }
+    });
+  } catch (error) {
+    const responseTime = Date.now() - startTime;
+    res.status(500).json({ 
+      error: 'Server error',
+      performance: { responseTime }
+    });
   }
+});
 
-  emit(event, data) {
-    console.log(`📡 [${event.toUpperCase()}]`, JSON.stringify(data, null, 2));
-  }
-}
+// 🐙 Kraken: Performance monitoring endpoint
+app.get('/api/auth/stats', (req, res) => {
+  res.json({
+    team: '🐙 Kraken',
+    users: users.size,
+    cacheEntries: cache.size,
+    uptime: process.uptime(),
+    memory: process.memoryUsage()
+  });
+});
 
-module.exports = WelcomeSensor;
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`🐙 Kraken Auth Service - Performance optimized on port ${PORT}`);
+});
+
+module.exports = app;
 EOF
 
-# Integrar en simulador principal
-cat >> 2-backend/iot-gateway/src/simulators/index.js << 'EOF'
-
-const WelcomeSensor = require('./welcome');
-
-// Iniciar sensor de bienvenida
-const welcomeSensor = new WelcomeSensor();
-welcomeSensor.start();
-EOF
-
-# Test
-npm test
-
-# Commit
+# Commit Kraken style
 git add .
-git commit -m "feat(iot): add welcome sensor for team onboarding"
-git push origin feature/PHOE-welcome-sensor
+git commit -m "feat(auth): 🐙 Kraken performance-optimized auth with monitoring"
+git push origin competition/week1-auth-service
 ```
 
-### 🦄 **Unicorn Team (DevOps)**
+### 🔥 **Phoenix Team (Auth Service - Semana 1)**
 
-#### **Setup Específico**
+#### **Setup para Competencia Phoenix**
 ```bash
-# Verificar Docker
-docker --version
-docker-compose --version
+# Phoenix approach: IoT-ready, real-time focused
+git checkout E3-Phoenix-🔥
+git checkout -b competition/week1-auth-service
 
-# Verificar herramientas
-npm --version
-git --version
-
-# Setup testing environment
-npm install -g jest cypress k6
+mkdir auth-service-phoenix
+cd auth-service-phoenix
+npm init -y
+npm install express jsonwebtoken bcryptjs socket.io mqtt ws
+npm install -D jest supertest
 ```
 
-#### **Tu Primera Tarea Unicorn**
+#### **Tu Primera Tarea Phoenix - IoT-Ready Auth**
 ```bash
-# Crear branch
-git checkout -b feature/UNI-health-check-improved
+# Phoenix innovation: IoT device authentication
+cat > index.js << 'EOF'
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
-# Mejorar health check
-cat > .github/workflows/health-check.yml << 'EOF'
-name: Health Check
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server, { cors: { origin: "*" } });
 
-on:
-  push:
-    branches: [ develop, main ]
-  pull_request:
-    branches: [ develop, main ]
+app.use(express.json());
 
-jobs:
-  health-check:
-    runs-on: ubuntu-latest
+// 🔥 Phoenix: Real-time auth events
+const authEvents = [];
+const connectedDevices = new Map();
+
+// 🔥 Phoenix: WebSocket for real-time auth monitoring
+io.on('connection', (socket) => {
+  console.log('🔥 Phoenix: Device connected for real-time auth');
+  
+  socket.on('device-auth-request', async (data) => {
+    // Phoenix innovation: Device-based authentication
+    const deviceAuth = {
+      deviceId: data.deviceId,
+      type: 'device-auth',
+      timestamp: new Date(),
+      status: 'authenticated'
+    };
     
-    steps:
-    - uses: actions/checkout@v3
+    connectedDevices.set(socket.id, deviceAuth);
+    authEvents.push(deviceAuth);
     
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'npm'
+    // Broadcast to all connected clients
+    io.emit('auth-event', deviceAuth);
+  });
+  
+  socket.on('disconnect', () => {
+    connectedDevices.delete(socket.id);
+  });
+});
+
+app.post('/api/auth/register', async (req, res) => {
+  try {
+    const { email, password, name, deviceInfo } = req.body;
     
-    - name: Install dependencies
-      run: npm ci
+    const hashedPassword = await bcrypt.hash(password, 10);
     
-    - name: Run health checks
-      run: |
-        echo "🦄 Unicorn Team Health Check"
-        npm run test:health || echo "Health tests not configured yet"
-        
-    - name: Docker health check
-      run: |
-        docker-compose -f docker-compose.yml config
-        echo "✅ Docker Compose configuration is valid"
-        
-    - name: Generate health report
-      run: |
-        echo "## 🦄 Health Check Report" > health-report.md
-        echo "- ✅ Node.js: $(node --version)" >> health-report.md
-        echo "- ✅ NPM: $(npm --version)" >> health-report.md
-        echo "- ✅ Docker Compose: $(docker-compose --version)" >> health-report.md
-        echo "- ✅ Date: $(date)" >> health-report.md
-        cat health-report.md
-        
-    - name: Upload health report
-      uses: actions/upload-artifact@v3
-      with:
-        name: health-report
-        path: health-report.md
+    const user = {
+      id: `phoenix_${Date.now()}`,
+      email,
+      name,
+      password: hashedPassword,
+      role: 'user',
+      deviceInfo: deviceInfo || null, // 🔥 Phoenix: Device tracking
+      team: 'phoenix',
+      createdAt: new Date()
+    };
+    
+    const token = jwt.sign(
+      { 
+        id: user.id, 
+        email: user.email, 
+        role: user.role,
+        team: 'phoenix',
+        deviceId: deviceInfo?.id 
+      },
+      process.env.JWT_SECRET || 'phoenix-fire-secret',
+      { expiresIn: '24h' }
+    );
+    
+    // 🔥 Phoenix: Real-time auth event
+    const authEvent = {
+      type: 'user-registered',
+      userId: user.id,
+      email: user.email,
+      deviceInfo,
+      timestamp: new Date()
+    };
+    
+    authEvents.push(authEvent);
+    io.emit('auth-event', authEvent);
+    
+    res.status(201).json({
+      message: '🔥 Phoenix team - Real-time IoT-ready authentication!',
+      token,
+      user: { id: user.id, email: user.email, name: user.name, role: user.role },
+      realTime: {
+        eventBroadcast: true,
+        connectedDevices: connectedDevices.size,
+        eventId: authEvent.timestamp
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Phoenix auth error' });
+  }
+});
+
+// 🔥 Phoenix: Real-time dashboard endpoint
+app.get('/api/auth/realtime-stats', (req, res) => {
+  res.json({
+    team: '🔥 Phoenix',
+    connectedDevices: connectedDevices.size,
+    totalAuthEvents: authEvents.length,
+    recentEvents: authEvents.slice(-5),
+    capabilities: ['real-time', 'iot-ready', 'device-tracking']
+  });
+});
+
+const PORT = process.env.PORT || 3001;
+server.listen(PORT, () => {
+  console.log(`🔥 Phoenix Auth Service - Real-time IoT ready on port ${PORT}`);
+});
+
+module.exports = app;
 EOF
 
-# Añadir script de salud en package.json
-npm run test -- --passWithNoTests || echo "Tests not configured yet"
-
-# Commit
 git add .
-git commit -m "feat(ci): add comprehensive health check workflow"
-git push origin feature/UNI-health-check-improved
+git commit -m "feat(auth): 🔥 Phoenix real-time IoT-ready auth with WebSockets"
+git push origin competition/week1-auth-service
+```
+
+### 🦄 **Unicorn Team (Auth Service - Semana 1)**
+
+#### **Setup para Competencia Unicorn**
+```bash
+# Unicorn approach: DevOps-first, container-native
+git checkout E4-Unicorn-🦄
+git checkout -b competition/week1-auth-service
+
+mkdir auth-service-unicorn
+cd auth-service-unicorn
+npm init -y
+npm install express jsonwebtoken bcryptjs prom-client
+npm install -D jest supertest
+```
+
+#### **Tu Primera Tarea Unicorn - Container-Native Auth**
+```bash
+# Unicorn innovation: Production-ready with monitoring
+cat > index.js << 'EOF'
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const client = require('prom-client');
+
+const app = express();
+app.use(express.json());
+
+// 🦄 Unicorn: Prometheus metrics
+const register = new client.Registry();
+const httpDuration = new client.Histogram({
+  name: 'http_request_duration_seconds',
+  help: 'Duration of HTTP requests in seconds',
+  labelNames: ['method', 'route', 'status_code'],
+  buckets: [0.1, 0.3, 0.5, 0.7, 1, 3, 5, 7, 10]
+});
+
+const authCounter = new client.Counter({
+  name: 'auth_requests_total',
+  help: 'Total number of auth requests',
+  labelNames: ['operation', 'status']
+});
+
+register.registerMetric(httpDuration);
+register.registerMetric(authCounter);
+
+// 🦄 Unicorn: Middleware for metrics
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on('finish', () => {
+    const duration = (Date.now() - start) / 1000;
+    httpDuration.labels(req.method, req.route?.path || req.path, res.statusCode).observe(duration);
+  });
+  next();
+});
+
+// 🦄 Unicorn: Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'healthy',
+    team: '🦄 Unicorn',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    version: process.env.npm_package_version || '1.0.0'
+  });
+});
+
+// 🦄 Unicorn: Metrics endpoint
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', register.contentType);
+  res.end(await register.metrics());
+});
+
+app.post('/api/auth/register', async (req, res) => {
+  const timer = httpDuration.startTimer({ method: 'POST', route: '/api/auth/register' });
+  
+  try {
+    const { email, password, name } = req.body;
+    
+    // 🦄 Unicorn: Input validation
+    if (!email || !password || !name) {
+      authCounter.inc({ operation: 'register', status: 'validation_error' });
+      timer({ status_code: 400 });
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+    
+    const hashedPassword = await bcrypt.hash(password, 10);
+    
+    const user = {
+      id: `unicorn_${Date.now()}`,
+      email,
+      name,
+      password: hashedPassword,
+      role: 'user',
+      team: 'unicorn',
+      createdAt: new Date()
+    };
+    
+    const token = jwt.sign(
+      { id: user.id, email: user.email, role: user.role, team: 'unicorn' },
+      process.env.JWT_SECRET || 'unicorn-magic-secret',
+      { expiresIn: '24h' }
+    );
+    
+    authCounter.inc({ operation: 'register', status: 'success' });
+    timer({ status_code: 201 });
+    
+    res.status(201).json({
+      message: '🦄 Unicorn team - Production-ready auth with monitoring!',
+      token,
+      user: { id: user.id, email: user.email, name: user.name, role: user.role },
+      devOps: {
+        containerReady: true,
+        monitored: true,
+        healthChecks: true,
+        metrics: 'prometheus'
+      }
+    });
+  } catch (error) {
+    authCounter.inc({ operation: 'register', status: 'error' });
+    timer({ status_code: 500 });
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`🦄 Unicorn Auth Service - Production ready on port ${PORT}`);
+});
+
+module.exports = app;
+EOF
+
+# 🦄 Unicorn: Advanced Dockerfile
+cat > Dockerfile << 'EOF'
+# Multi-stage build for optimal container size
+FROM node:18-alpine AS deps
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production && npm cache clean --force
+
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build 2>/dev/null || echo "No build step defined"
+
+FROM node:18-alpine AS runner
+WORKDIR /app
+
+# Security: Create non-root user
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 authuser
+
+# Copy dependencies and app
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=builder /app .
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3001/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
+
+USER authuser
+
+EXPOSE 3001
+
+CMD ["node", "index.js"]
+EOF
+
+# 🦄 Unicorn: Docker Compose for testing
+cat > docker-compose.test.yml << 'EOF'
+version: '3.8'
+services:
+  auth-service:
+    build: .
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=test
+      - JWT_SECRET=test-secret
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+EOF
+
+git add .
+git commit -m "feat(auth): 🦄 Unicorn production-ready auth with monitoring & containers"
+git push origin competition/week1-auth-service
 ```
 
 ---

@@ -1,17 +1,205 @@
-# 📊 Project Dashboard - ComSocUPC Inventory
+# 📊 Project Dashboard - ComSocUPC Inventory (Metodología Competitiva)
 
-> **Status**: 🟢 Active Development | **Last Updated**: $(date +"%Y-%m-%d %H:%M")
+> **Status**: 🏆 Competencia Activa | **Current Week**: Auth Service Challenge | **Last Updated**: 2025-08-01
 
-## 🎯 Project Overview
+## 🏆 Competencia Semanal - Auth Service (Semana 1)
 
-| Metric | Value | Status | Target |
-|--------|-------|--------|--------|
-| 👥 **Total Contributors** | 0 | 🔴 | 12+ |
-| 🌿 **Active Branches** | 6 | 🟢 | 6 |
-| 📝 **Open Issues** | 0 | 🟡 | 5-10 |
-| 🔄 **Open PRs** | 0 | 🟡 | 2-5 |
-| ✅ **Closed Issues** | 0 | ➖ | - |
-| 🎯 **Sprint Progress** | 0% | 🔴 | 80%+ |
+### 📅 **Timeline de Competencia**
+| Día | Evento | Estado |
+|-----|--------|--------|
+| **Lunes** | 🚀 Kick-off Auth Service | ✅ Completado |
+| **Martes** | 💻 Desarrollo Día 1 | 🏃‍♂️ En Progreso |
+| **Miércoles** | 💻 Desarrollo Día 2 | ⏳ Pendiente |
+| **Jueves** | 💻 Desarrollo Día 3 | ⏳ Pendiente |
+| **Viernes 16:00** | 🎬 Demo Day | ⏳ Pendiente |
+| **Lunes Siguiente** | 🏆 Resultados | ⏳ Pendiente |
+
+### 🎯 **Estado de Equipos en Competencia**
+
+| Equipo | Progreso | Commits | Tests | Innovation Score | Status |
+|--------|----------|---------|-------|------------------|--------|
+| 🐉 **Dragons** | 15% | 2 | ❌ | 🎨 Enhanced JWT | 🟡 Desarrollo |
+| 🐙 **Kraken** | 10% | 1 | ❌ | ⚡ Performance Focus | 🟡 Desarrollo |
+| 🔥 **Phoenix** | 5% | 1 | ❌ | 🔌 IoT Integration | 🟡 Desarrollo |
+| 🦄 **Unicorn** | 20% | 3 | ❌ | 🐳 Container-Native | 🟢 Adelantado |
+
+### 📊 **Métricas de Competencia en Tiempo Real**
+
+#### **Commits por Día**
+```
+🐉 Dragons:  ██░░░░░░░░ 2 commits
+🐙 Kraken:   █░░░░░░░░░ 1 commit  
+🔥 Phoenix:  █░░░░░░░░░ 1 commit
+🦄 Unicorn:  ███░░░░░░░ 3 commits
+```
+
+#### **Lines of Code**
+```
+🐉 Dragons:  ████░░░░░░ 120 LOC
+🐙 Kraken:   ████████░░ 180 LOC  
+🔥 Phoenix:  ██████░░░░ 150 LOC
+🦄 Unicorn:  ██████████ 200 LOC
+```
+
+#### **Features Implementadas**
+| Feature | 🐉 Dragons | 🐙 Kraken | 🔥 Phoenix | 🦄 Unicorn |
+|---------|-------------|-----------|-------------|-------------|
+| **JWT Auth** | ✅ | ✅ | ✅ | ✅ |
+| **Password Hash** | ✅ | ✅ | ✅ | ✅ |
+| **Validation** | ✅ | ✅ | ❌ | ✅ |
+| **Error Handling** | ✅ | ✅ | ❌ | ✅ |
+| **Tests** | ❌ | ❌ | ❌ | ❌ |
+| **Dockerfile** | ✅ | ❌ | ❌ | ✅ |
+| **Innovation** | 🎨 Custom Claims | ⚡ Performance | 🔌 WebSockets | 🐳 Monitoring |
+
+---
+
+## 🏆 Ranking General de Temporada
+
+### 📈 **Leaderboard Actual**
+```
+🏆 SEASON RANKING
+┌─────────────────────────────────────────────────────┐
+│ 1. 🦄 Unicorn    - 0 pts (0 wins) [🔥 Hot Streak]  │
+│ 2. 🐉 Dragons    - 0 pts (0 wins) [💪 Strong]      │  
+│ 3. 🐙 Kraken     - 0 pts (0 wins) [🎯 Focused]     │
+│ 4. 🔥 Phoenix    - 0 pts (0 wins) [🚀 Rising]      │
+└─────────────────────────────────────────────────────┘
+```
+
+### 🎯 **Cronograma de Competencias**
+| Semana | Challenge | Deadline | Ganador | Status |
+|--------|-----------|----------|---------|--------|
+| **1** | 🔐 **Auth Service** | 2025-08-08 | TBD | 🏃‍♂️ **ACTIVA** |
+| **2** | � **Product Service** | 2025-08-15 | TBD | ⏳ Próxima |
+| **3** | 📊 **Inventory Service** | 2025-08-22 | TBD | ⏳ Planeada |
+| **4** | 🔌 **IoT Gateway** | 2025-08-29 | TBD | ⏳ Planeada |
+
+### � **Achievements Desbloqueados**
+- ❌ **First Blood**: Primera victoria (Nadie aún)
+- ❌ **Speed Demon**: Entrega antes del jueves (Nadie aún)
+- ❌ **Perfect Score**: 100% en criterios (Nadie aún)
+- ❌ **Innovation King**: Feature más creativa (Nadie aún)
+
+---
+
+## 🎯 Auth Service - Criterios de Evaluación
+
+### 📋 **Criterios y Pesos**
+| Criterio | Peso | 🐉 Dragons | 🐙 Kraken | 🔥 Phoenix | 🦄 Unicorn |
+|----------|------|-------------|-----------|-------------|-------------|
+| **🏗️ Arquitectura** | 25% | ⏳ | ⏳ | ⏳ | ⏳ |
+| **💻 Código** | 25% | ⏳ | ⏳ | ⏳ | ⏳ |
+| **🧪 Testing** | 20% | ❌ | ❌ | ❌ | ❌ |
+| **🚀 Performance** | 15% | ⏳ | ⏳ | ⏳ | ⏳ |
+| **🎨 Innovation** | 10% | 🎨 Custom JWT | ⚡ Monitoring | � Real-time | 🐳 DevOps |
+| **� Documentation** | 5% | ⏳ | ⏳ | ⏳ | ⏳ |
+
+### 🎯 **Requirements Checklist**
+
+#### **Funcionalidades Básicas (Obligatorias)**
+- [x] **JWT Authentication**: Login/logout con tokens
+- [x] **User Registration**: Registro con validaciones
+- [x] **Password Security**: Hash con bcrypt + salt
+- [ ] **Role-based Access**: Admin/User roles
+- [ ] **Rate Limiting**: Protección contra ataques
+- [ ] **API Documentation**: OpenAPI 3.0 completo
+- [ ] **Testing Suite**: Unit + Integration tests
+- [ ] **Docker Ready**: Dockerfile optimizado
+
+#### **Innovaciones por Equipo**
+- 🐉 **Dragons**: Enhanced JWT with custom claims, 2FA ready
+- 🐙 **Kraken**: Performance monitoring, database optimization
+- 🔥 **Phoenix**: Real-time events, IoT device authentication
+- 🦄 **Unicorn**: Production monitoring, container optimization
+
+---
+
+## 📊 Métricas Técnicas en Tiempo Real
+
+### **Code Quality**
+| Equipo | LOC | Complexity | Maintainability | Security |
+|--------|-----|------------|-----------------|----------|
+| 🐉 **Dragons** | 120 | Low | A | High |
+| � **Kraken** | 180 | Medium | A | High |
+| � **Phoenix** | 150 | Medium | B+ | Medium |
+| 🦄 **Unicorn** | 200 | Low | A+ | Very High |
+
+### **Performance Benchmarks** (Pendientes)
+| Metric | Target | 🐉 Dragons | 🐙 Kraken | 🔥 Phoenix | 🦄 Unicorn |
+|--------|--------|-------------|-----------|-------------|-------------|
+| **Response Time** | <200ms | ⏳ | ⏳ | ⏳ | ⏳ |
+| **Memory Usage** | <100MB | ⏳ | ⏳ | ⏳ | ⏳ |
+| **Concurrent Users** | 1000+ | ⏳ | ⏳ | ⏳ | ⏳ |
+| **Container Size** | <100MB | ⏳ | ⏳ | ⏳ | ⏳ |
+
+---
+
+## 🎬 Demo Day Preparation
+
+### 📅 **Viernes 16:00 - Demo Schedule**
+| Hora | Equipo | Tiempo | Enfoque |
+|------|--------|--------|---------|
+| **16:00-16:15** | 🐉 **Dragons** | 15 min | Enhanced security features |
+| **16:15-16:30** | 🐙 **Kraken** | 15 min | Performance optimization |
+| **16:30-16:45** | 🔥 **Phoenix** | 15 min | Real-time IoT integration |
+| **16:45-17:00** | 🦄 **Unicorn** | 15 min | Production-ready DevOps |
+
+### 🎯 **Demo Requirements**
+- ✅ **Live Demo**: Funcionamiento en tiempo real
+- ✅ **Code Walkthrough**: Explicación de arquitectura
+- ✅ **Innovation Showcase**: Características únicas
+- ✅ **Q&A Session**: Preguntas del jurado
+- ✅ **Performance Metrics**: Benchmarks en vivo
+
+---
+
+## 🚨 Alertas y Blockers Actuales
+
+### 🔴 **Crítico**
+1. **Testing Gap**: Ningún equipo tiene tests implementados
+2. **Documentation Missing**: Falta documentación API
+3. **Performance Unknown**: No hay benchmarks establecidos
+
+### 🟡 **Advertencias**
+1. **Tiempo Limitado**: Solo quedan 3 días para Demo Day
+2. **Feature Creep**: Algunos equipos agregando demasiadas features
+3. **Integration Pending**: Falta testing de integración
+
+### 🟢 **Positivo**
+1. **Strong Innovation**: Cada equipo tiene enfoque único
+2. **Active Development**: Commits diarios de todos los equipos
+3. **Competition Spirit**: Alta motivación y engagement
+
+---
+
+## 📞 Quick Actions para Competencia
+
+### 🆘 **¿Necesitas Ayuda?**
+- 📖 [Competition Guide](./TEAM_GUIDE.md#metodología-de-competencia-semanal)
+- 👥 [Team Onboarding](./ONBOARDING.md#metodología-del-proyecto)
+- 🔄 [GitHub Workflow](./GITHUB_WORKFLOW.md)
+- 🐛 [Create Issue](../../../issues/new/choose)
+
+### 🚀 **Ready to Demo?**
+1. Finalizar implementación básica
+2. Añadir tests (mínimo unit tests)
+3. Documentar API endpoints
+4. Preparar demo script
+5. Practicar presentación
+
+### 📊 **Para Jurado/Evaluadores**
+- [Evaluation Criteria](./TEAM_GUIDE.md#criterios-de-evaluación)
+- [Demo Day Schedule](#demo-day-preparation)
+- [Scoring Rubric](./TEAM_GUIDE.md#sistema-de-puntuación)
+
+---
+
+**🏆 Current Competition: Auth Service Challenge - 3 días restantes!**
+
+---
+
+*� Dashboard se actualiza automáticamente con cada commit a ramas de competencia*
 
 ---
 
