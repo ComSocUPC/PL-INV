@@ -1,0 +1,58 @@
+---
+name: 🐛 Bug Report
+about: Reportar un error o problema en el sistema
+title: '[BUG] '
+labels: ['bug', 'needs-triage']
+assignees: ''
+---
+
+## 🐛 Descripción del Bug
+<!-- Descripción clara y concisa del problema -->
+
+## 🔄 Pasos para Reproducir
+1. Ir a '...'
+2. Hacer clic en '...'
+3. Scrollear hasta '...'
+4. Ver error
+
+## ✅ Comportamiento Esperado
+<!-- Descripción clara de qué esperabas que pasara -->
+
+## ❌ Comportamiento Actual
+<!-- Descripción clara de qué está pasando realmente -->
+
+## 🖼️ Screenshots
+<!-- Si aplica, agregar screenshots para explicar el problema -->
+
+## 🌍 Ambiente
+- **OS**: [ej. Windows 11, macOS 12.0, Ubuntu 20.04]
+- **Browser**: [ej. Chrome 91.0, Firefox 89.0, Safari 14.1]
+- **Node Version**: [ej. 18.17.0]
+- **Docker Version**: [ej. 20.10.21]
+
+## 🎯 Equipo Responsable
+<!-- Marcar el equipo que debería revisar esto -->
+- [ ] 🐉 E1-Dragons (Frontend)
+- [ ] 🐙 E2-Kraken (Backend)  
+- [ ] 🔥 E3-Phoenix (IoT)
+- [ ] 🦄 E4-Unicorn (DevOps)
+
+## 📋 Información Adicional
+<!-- Cualquier otra información relevante sobre el problema -->
+
+## 🔍 Logs/Errores
+```
+Pegar aquí cualquier log de error relevante
+```
+
+## 🎯 Prioridad
+- [ ] 🚨 Critical (sistema no funciona)
+- [ ] ⚠️ High (funcionalidad importante afectada)
+- [ ] 📋 Medium (problema menor)
+- [ ] 📝 Low (mejora cosmética)
+
+## ✅ Checklist
+- [ ] He buscado issues similares existentes
+- [ ] He incluido información suficiente para reproducir
+- [ ] He marcado el equipo responsable
+- [ ] He incluido logs/screenshots relevantes

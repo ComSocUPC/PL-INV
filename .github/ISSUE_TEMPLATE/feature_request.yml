@@ -1,0 +1,87 @@
+---
+name: ✨ Feature Request
+about: Sugerir una nueva funcionalidad para el proyecto
+title: '[FEATURE] '
+labels: ['enhancement', 'needs-discussion']
+assignees: ''
+---
+
+## ✨ Descripción de la Funcionalidad
+<!-- Descripción clara y concisa de qué funcionalidad quieres agregar -->
+
+## 🎯 Problema que Resuelve
+<!-- Descripción clara del problema que esta funcionalidad resolvería -->
+<!-- ¿Es relacionado a una frustración? Por favor describe. -->
+
+## 💡 Solución Propuesta
+<!-- Descripción clara y concisa de qué quieres que pase -->
+
+## 🔄 Alternativas Consideradas
+<!-- Descripción de cualquier solución alternativa o funcionalidades que hayas considerado -->
+
+## 📊 Impacto en Equipos
+<!-- Marcar qué equipos se verían afectados por esta funcionalidad -->
+- [ ] 🐉 E1-Dragons (Frontend) - Cambios en UI/UX
+- [ ] 🐙 E2-Kraken (Backend) - Cambios en APIs/servicios
+- [ ] 🔥 E3-Phoenix (IoT) - Cambios en dispositivos/sensores
+- [ ] 🦄 E4-Unicorn (DevOps) - Cambios en infraestructura/testing
+
+## 🎨 Mockups/Diseños
+<!-- Si tienes mockups, wireframes, o designs, inclúyelos aquí -->
+
+## 📋 Criterios de Aceptación
+<!-- Lista de condiciones que deben cumplirse para considerar la feature completa -->
+- [ ] Criterio 1
+- [ ] Criterio 2
+- [ ] Criterio 3
+
+## 🔧 Consideraciones Técnicas
+### Frontend (🐉 Dragons)
+- [ ] Nuevos componentes necesarios
+- [ ] Cambios en routing
+- [ ] Updates en state management
+- [ ] Responsive design
+
+### Backend (🐙 Kraken)
+- [ ] Nuevos endpoints
+- [ ] Cambios en base de datos
+- [ ] Updates en documentación API
+- [ ] Nuevos middlewares
+
+### IoT (🔥 Phoenix)
+- [ ] Nuevos simuladores
+- [ ] Protocolos de comunicación
+- [ ] WebSocket events
+- [ ] Hardware integration
+
+### DevOps (🦄 Unicorn)
+- [ ] CI/CD updates
+- [ ] Docker changes
+- [ ] Testing strategy
+- [ ] Monitoring/logging
+
+## 🎯 Prioridad
+- [ ] 🚨 Must Have (crítico para release)
+- [ ] ⚠️ Should Have (importante pero no crítico)
+- [ ] 📋 Could Have (nice to have)
+- [ ] 📝 Won't Have (no en este release)
+
+## 📅 Timeline Estimado
+- [ ] 📊 Planning: ___ días
+- [ ] 🎨 Design: ___ días  
+- [ ] 💻 Development: ___ días
+- [ ] 🧪 Testing: ___ días
+- [ ] 🚀 Deployment: ___ días
+
+## 📚 Información Adicional
+<!-- Cualquier otra información, contexto, o screenshots sobre la feature request -->
+
+## 🔗 Referencias
+<!-- Links a documentación, ejemplos, o recursos relacionados -->
+
+## ✅ Checklist
+- [ ] He buscado features similares existentes
+- [ ] He incluido mockups/diseños (si aplica)
+- [ ] He considerado el impacto en todos los equipos
+- [ ] He definido criterios de aceptación claros
+- [ ] He estimado el timeline aproximado

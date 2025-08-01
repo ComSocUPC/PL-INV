@@ -1,0 +1,95 @@
+---
+name: 📚 Documentation Update
+about: Sugerir mejoras o cambios en la documentación
+title: '[DOCS] '
+labels: ['documentation', 'good-first-issue']
+assignees: ''
+---
+
+## 📚 Tipo de Documentación
+<!-- Seleccionar el tipo de documentación a actualizar -->
+- [ ] 📖 README files
+- [ ] 🔧 API Documentation (OpenAPI)
+- [ ] 🏗️ Architecture guides
+- [ ] 🚀 Deployment guides
+- [ ] 🎓 Educational content
+- [ ] 💻 Code comments
+- [ ] 🧪 Testing documentation
+- [ ] 📊 GitHub workflows
+
+## 📍 Ubicación del Documento
+<!-- Especificar qué archivo(s) necesitan actualización -->
+**Archivo(s)**: 
+- `path/to/file.md`
+- `path/to/another/file.md`
+
+**URL(s)**: 
+- https://github.com/ComSocUPC/PL-INV/blob/main/docs/...
+
+## ✏️ Cambios Propuestos
+<!-- Descripción detallada de qué cambios quieres hacer -->
+
+### Contenido Actual
+<!-- Si es una actualización, incluir el contenido actual que necesita cambio -->
+```markdown
+Contenido actual que necesita actualización...
+```
+
+### Contenido Propuesto
+<!-- El nuevo contenido o cambios sugeridos -->
+```markdown
+Nuevo contenido propuesto...
+```
+
+## 🎯 Razón del Cambio
+<!-- ¿Por qué es necesario este cambio? -->
+- [ ] ✅ Información desactualizada
+- [ ] ❌ Información incorrecta
+- [ ] 📝 Faltan detalles importantes
+- [ ] 🎨 Mejorar claridad/estructura
+- [ ] 🌍 Añadir ejemplos
+- [ ] 🔗 Corregir links rotos
+- [ ] 📱 Mejorar formato/markdown
+- [ ] 🎓 Contenido educativo
+
+## 👥 Audiencia Objetivo
+<!-- ¿Para quién es esta documentación? -->
+- [ ] 🎓 Estudiantes/principiantes
+- [ ] 💻 Desarrolladores
+- [ ] 🏗️ Arquitectos de software
+- [ ] 🚀 DevOps engineers
+- [ ] 📊 Project managers
+- [ ] 👥 Colaboradores externos
+
+## 🎯 Equipo Responsable
+<!-- ¿Qué equipo debería revisar estos cambios? -->
+- [ ] 🐉 E1-Dragons (Frontend docs)
+- [ ] 🐙 E2-Kraken (Backend/API docs)
+- [ ] 🔥 E3-Phoenix (IoT docs)
+- [ ] 🦄 E4-Unicorn (DevOps/infrastructure docs)
+- [ ] 📚 Documentation team (general docs)
+
+## 📋 Impacto de los Cambios
+<!-- ¿Qué otros documentos podrían verse afectados? -->
+- [ ] 📖 README principal
+- [ ] 🔧 Installation guides
+- [ ] 🎓 Tutorial content
+- [ ] 📊 API specifications
+- [ ] 🚀 Deployment procedures
+- [ ] 🧪 Testing guides
+
+## 🖼️ Screenshots/Ejemplos
+<!-- Si es relevante, incluir screenshots del problema actual o ejemplos -->
+
+## 🔗 Referencias
+<!-- Links a recursos externos, standards, o ejemplos de buena documentación -->
+
+## ✅ Checklist
+- [ ] He revisado documentación similar existente
+- [ ] He identificado la audiencia objetivo
+- [ ] He proporcionado contenido específico/ejemplos
+- [ ] He considerado el impacto en otros documentos
+- [ ] El cambio mejora la claridad/utilidad
+
+## 📝 Notas Adicionales
+<!-- Cualquier información adicional sobre los cambios propuestos -->
