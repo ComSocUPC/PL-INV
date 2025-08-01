@@ -10,12 +10,12 @@
 
 ### 🛠️ **Para Desarrolladores**
 - [🔄 Workflow de GitHub](./docs/GITHUB_WORKFLOW.md) - Proceso de colaboración
-- [🏗️ Arquitectura del Sistema](./docs/ARCHITECTURE.md) - Diseño técnico
-- [💻 Guía de Desarrollo](./docs/DEVELOPMENT.md) - Setup y workflows
-- [🚀 Guía de Deployment](./docs/DEPLOYMENT.md) - Producción y staging
+- [🏗️ Arquitectura del Sistema](./docs/ARCHITECTURE_GUIDE.md) - Diseño técnico
+- [💻 Guía de Desarrollo](./docs/DEVELOPMENT_GUIDE.md) - Setup y workflows
+- [🚀 Guía de Deployment](./docs/DEPLOYMENT_GUIDE.md) - Producción y staging
 
 ### 📖 **Ejemplos y Tutoriales**
-- [🎓 Ejemplo Educativo](./PROYECTO-EJEMPLO.md) - Proyecto simplificado
+- [🎓 Ejemplo Educativo](./example-simple-warehouse/PROYECTO-EJEMPLO.md) - Proyecto simplificado
 - [🏭 Almacén Simple](./example-simple-warehouse/) - Implementación funcional
 
 ## 📁 Documentación Técnica Original
@@ -55,7 +55,7 @@ Si vienes de un entorno de **arquitectura de 3 capas** (Frontend → Backend →
 👉 **[Proyecto Educativo Simple →](./example-simple-warehouse/README.md)**
 
 ### � **Para Desarrolladores - Proyecto Completo:**
-👉 **[Guía de Inicio Rápido →](./QUICK_START.md)**
+👉 **[Guía de Inicio Rápido →](./example-simple-warehouse/README.md)**
 
 ## 🏗️ Estructura Simplificada para Principiantes
 
@@ -159,7 +159,7 @@ graph TB
 ## � Documentación
 
 ### Para Principiantes
-- **[🚀 Guía de Inicio Rápido](./QUICK_START.md)** - Empieza aquí en 10 minutos
+- **[🚀 Guía de Inicio Rápido](./example-simple-warehouse/README.md)** - Empieza aquí en 10 minutos
 - **[🏗️ Guía de Arquitectura](./docs/ARCHITECTURE_GUIDE.md)** - De 3 capas a microservicios
 - **[📁 Estructura del Proyecto](./docs/PROJECT_STRUCTURE.md)** - Entiende la organización
 
@@ -169,9 +169,8 @@ graph TB
 - **[🚀 Guía de Despliegue](./docs/DEPLOYMENT_GUIDE.md)** - Producción y CI/CD
 
 ### Para DevOps
-- **[🐳 Docker Guide](./docs/DOCKER_GUIDE.md)** - Containers y orquestación
-- **[🔧 Configuración](./docs/CONFIGURATION_GUIDE.md)** - Variables de entorno
-- **[📡 IoT Setup](./docs/IOT_GUIDE.md)** - Dispositivos y MQTT
+- **[ Configuración](./docs/PROJECT_STRUCTURE.md)** - Estructura del proyecto
+- **[📡 IoT Setup](./docs/IOT_INTEGRATION.md)** - Dispositivos y MQTT
 
 ## 🔗 URLs de Desarrollo
 
